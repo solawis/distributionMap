@@ -42,6 +42,12 @@ onFeatureSelect = (ev) ->
   f     = ev.feature
   attrs = f.attributes
   desc  = "<h2>#{attrs.name}</h2>"
+  desc += "<p>"
+  if attrs.address?
+    desc += "#{attrs.address}<br/>"
+  if attrs.zip and attrs.city?
+    desc += "#{attrs.zip} #{attrs.city}"
+  desc += "</p>"
   popup = new OpenLayers.Popup.FramedCloud "featurePopup"
     , f.geometry.getBounds().getCenterLonLat()
     , new OpenLayers.Size(100, 100)
@@ -63,12 +69,13 @@ onFeatureUnselect = (ev) ->
 onPopupClose = (evt) -> dpSelectControl.unselect @feature
 
 addDPPoint = (p) ->
-  icon = switch p.state
-    when 'active'   then ACTIVE_DP_ICON
-    when 'inactive' then INACTIVE_DP_ICON
-    else INACTIVE_DP_ICON
-  dpFeature = new OpenLayers.Feature.Vector getTransformedPoint(p), p, icon
-  dpLayer.addFeatures dpFeature
+  if p.lon and p.lat
+    icon = switch p.state
+      when 'active'   then ACTIVE_DP_ICON
+      when 'inactive' then INACTIVE_DP_ICON
+      else INACTIVE_DP_ICON
+    dpFeature = new OpenLayers.Feature.Vector getTransformedPoint(p), p, icon
+    dpLayer.addFeatures dpFeature
 
 addMemberPoint = (m) ->
   memberLayer.addFeatures new OpenLayers.Feature.Vector getTransformedPoint(m), m
