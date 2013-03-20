@@ -1,0 +1,27 @@
+{
+  "name":         "distributionMap",
+  "version":      "0.1.0",
+  "author":       "Markus Kohlhase <mail@markus-kohlhase.de>",
+  "licenses":     [{"type": "AGPLv3"}],
+  "engine":       "browser",
+  "devDependencies":
+  {
+    "coffee-script":        ">=1.6.1",
+    "stylus":               ">=0.31.0"
+  },
+  "repositories":
+  [
+    {
+      "type": "git",
+      "path": "git://github.com/solawis/distributionMap.git"
+    }
+  ],
+  "maintainers":
+  [
+    {
+      "name":   "Markus Kohlhase",
+      "email":  "mail@markus-kohlhase.de",
+      "web":    "http://github.com/flosse/"
+    }
+  ]
+}
