@@ -48,6 +48,8 @@ onFeatureSelect = (ev) ->
   if attrs.zip and attrs.city?
     desc += "#{attrs.zip} #{attrs.city}"
   desc += "</p>"
+  if attrs.note?
+    desc += "<p>#{attrs.note}</p>"
   popup = new OpenLayers.Popup.FramedCloud "featurePopup"
     , f.geometry.getBounds().getCenterLonLat()
     , new OpenLayers.Size(100, 100)
