@@ -17,6 +17,7 @@ you can use an OSM Tool like this: http://gll.petschge.de/
     npm install .
     coffee -c map.coffee
     stylus main.styl
+    coffee csv2json.coffee
 
 ## License
 
