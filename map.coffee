@@ -4,18 +4,27 @@ Copyright (c) 2013, Markus Kohlhase <mail@markus-kohlhase.de>
 
 PROJECTION_4326 = new OpenLayers.Projection "EPSG:4326"
 PROJECTION_MERC = new OpenLayers.Projection "EPSG:900913"
+
 ACTIVE_DP_ICON   =
   externalGraphic:  'dp_active_64.png'
   graphicHeight:    64
   graphicWidth:     64
   graphicYOffset:   -64
   graphicXOffset:   -24
+
 INACTIVE_DP_ICON =
   externalGraphic:  'dp_inactive_64.png'
   graphicHeight:    64
   graphicWidth:     64
   graphicYOffset:   -64
   graphicXOffset:   -24
+
+FARM_ICON =
+  externalGraphic:  'farm.png'
+  graphicHeight:    64
+  graphicWidth:     64
+  graphicYOffset:   -24
+  graphicXOffset:   -27
 
 DEFAULT_STYLE =
   pointRadius: 6
@@ -32,6 +41,7 @@ STYLE_MAP = new OpenLayers.StyleMap
 map             = null
 dpLayer         = null
 memberLayer     = null
+farmLayer       = null
 dpSelectControl = null
 
 getTransformedPoint = (p) ->
@@ -82,6 +92,9 @@ addDPPoint = (p) ->
 addMemberPoint = (m) ->
   memberLayer.addFeatures new OpenLayers.Feature.Vector getTransformedPoint(m), m
 
+addFarmPoint = (m) ->
+  farmLayer.addFeatures new OpenLayers.Feature.Vector getTransformedPoint(m), m, FARM_ICON
+
 onError = -> console.error "could not load data"
 
 init = ->
@@ -107,16 +120,20 @@ init = ->
   dpLayer = new OpenLayers.Layer.Vector "Verteilerpunkte"
   map.addLayer dpLayer
 
+  farmLayer = new OpenLayers.Layer.Vector "SoLaWiS Hof"
+  map.addLayer farmLayer
+
   memberLayer = new OpenLayers.Layer.Vector "Mitglieder", styleMap: STYLE_MAP
   map.addLayer memberLayer
 
   $.getJSON('data.json')
     .fail(onError)
     .done (data) ->
-      if data.distributionPoints?
-        addDPPoint p for p in data.distributionPoints
-      if data.members?
-        addMemberPoint p for p in data.members
+      for p in data
+        switch p.type
+          when "member" then addMemberPoint p
+          when "farm"   then addFarmPoint p
+          else addDPPoint p
 
   dpSelectControl = new OpenLayers.Control.SelectFeature dpLayer
   map.addControl dpSelectControl
@@ -129,6 +146,6 @@ init = ->
   center = new OpenLayers.LonLat 9.1772, 48.7823
   centerAsMerc = center.transform PROJECTION_4326, PROJECTION_MERC
   map.setCenter centerAsMerc, 8
-  map.zoomTo 13
+  map.zoomTo 12
 
 $ -> init()

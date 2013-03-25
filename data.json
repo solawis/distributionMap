@@ -1,27 +1,32 @@
-{
-  "distributionPoints" : [
-    {
-      "name": "Dummy D-Point",
-      "lon": 9.179415464401199,
-      "lat": 48.77870479972565,
-      "state": "active"
-    },
-    {
-      "name": "Inactive D-Point",
-      "lon": 9.183385133743132,
-      "lat": 48.781207507092866,
-      "state": "inactive"
-    }
-  ],
-  "members": [
-    {
-      "lon": 9.181936740875237,
-      "lat": 48.77797658742337
+[
+  {
+    "type": "distributionPoint",
+    "name": "Dummy D-Point",
+    "lon": 9.179415464401199,
+    "lat": 48.77870479972565,
+    "state": "active"
+  },
+  {
+    "type": "distributionPoint",
+    "name": "Inactive D-Point",
+    "lon": 9.183385133743132,
+    "lat": 48.781207507092866,
+    "state": "inactive"
+  },
+  {
+    "type": "member",
+    "lon": 9.181936740875237,
+    "lat": 48.77797658742337
 
-    },
-    {
-      "lon": 9.184758424758316,
-      "lat": 48.780104634479535
-    }
-  ]
-}
+  },
+  {
+    "type": "member",
+    "lon": 9.184758424758316,
+    "lat": 48.780104634479535
+  },
+  {
+    "type": "farm",
+    "lon": 9.145072441139156,
+    "lat": 48.72448983685695
+  }
+]
